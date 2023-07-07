@@ -74,6 +74,9 @@ dev-status:
 	kubectl get svc -o wide
 	kubectl get pods -o wide --watch --all-namespaces
 
+dev-restart:
+	kubectl rollout restart deployment $(APP) --namespace=$(NAMESPACE)
+
 # ------------------------------------------------------------------------------
 
 dev-logs:
