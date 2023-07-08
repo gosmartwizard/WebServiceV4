@@ -45,7 +45,7 @@ service:
 # ==============================================================================
 # Running from within k8s/kind
 
-dev-bill:
+dev-smart:
 	kind load docker-image $(TELEPRESENCE) --name $(KIND_CLUSTER)
 	telepresence --context=kind-$(KIND_CLUSTER) helm install
 	telepresence --context=kind-$(KIND_CLUSTER) connect
