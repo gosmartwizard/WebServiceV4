@@ -144,8 +144,5 @@ func run(log *zap.SugaredLogger) error {
 		}
 	}
 
-	log.Infow("shutdown", "status", "shutdown started", "signal", sig)
-	defer log.Infow("shutdown", "status", "shutdown complete", "signal", sig)
-
 	return nil
 }
