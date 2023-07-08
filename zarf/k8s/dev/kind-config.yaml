@@ -9,7 +9,7 @@ nodes:
     hostPort: 4000
   - containerPort: 8200
     hostPort: 8200
-  - containerPort: 5432
-    hostPort: 5432
+  - containerPort: 5431
+    hostPort: 5431
   - containerPort: 9411
     hostPort: 9411
