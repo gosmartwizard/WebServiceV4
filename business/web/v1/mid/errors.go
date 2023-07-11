@@ -4,6 +4,7 @@ import (
 	"context"
 	"net/http"
 
+	"github.com/gosmartwizard/WebServiceV4/business/sys/validate"
 	"github.com/gosmartwizard/WebServiceV4/business/web/auth"
 	v1 "github.com/gosmartwizard/WebServiceV4/business/web/v1"
 	"github.com/gosmartwizard/WebServiceV4/foundation/web"
@@ -23,6 +24,13 @@ func Errors(log *zap.SugaredLogger) web.Middleware {
 				var status int
 
 				switch {
+				case validate.IsFieldErrors(err):
+					fieldErrors := validate.GetFieldErrors(err)
+					er = v1.ErrorResponse{
+						Error:  "data validation error",
+						Fields: fieldErrors.Fields(),
+					}
+					status = http.StatusBadRequest
 				case v1.IsRequestError(err):
 					reqErr := v1.GetRequestError(err)
 					er = v1.ErrorResponse{
