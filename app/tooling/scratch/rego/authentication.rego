@@ -1,4 +1,4 @@
-package ardan.rego
+package smartwizard.rego
 
 default auth = false
 
