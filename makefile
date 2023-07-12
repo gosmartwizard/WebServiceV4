@@ -152,4 +152,4 @@ migrate:
 	go run app/tooling/admin/main.go
 
 query:
-	curl -il http://localhost:3000/users?page=1&rows=2
+	@curl -s http://localhost:3000/users?page=1&rows=2
