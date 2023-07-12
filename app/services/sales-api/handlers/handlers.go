@@ -8,6 +8,7 @@ import (
 	"github.com/gosmartwizard/WebServiceV4/business/web/auth"
 	"github.com/gosmartwizard/WebServiceV4/business/web/v1/mid"
 	"github.com/gosmartwizard/WebServiceV4/foundation/web"
+	"github.com/jmoiron/sqlx"
 	"go.uber.org/zap"
 )
 
@@ -16,6 +17,7 @@ type APIMuxConfig struct {
 	Shutdown chan os.Signal
 	Log      *zap.SugaredLogger
 	Auth     *auth.Auth
+	DB       *sqlx.DB
 }
 
 // APIMux constructs a http.Handler with all application routes defined.
