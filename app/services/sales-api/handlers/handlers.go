@@ -5,6 +5,9 @@ import (
 	"os"
 
 	"github.com/gosmartwizard/WebServiceV4/app/services/sales-api/handlers/v1/testgrp"
+	"github.com/gosmartwizard/WebServiceV4/app/services/sales-api/handlers/v1/usergrp"
+	"github.com/gosmartwizard/WebServiceV4/business/core/user"
+	"github.com/gosmartwizard/WebServiceV4/business/core/user/stores/userdb"
 	"github.com/gosmartwizard/WebServiceV4/business/web/auth"
 	"github.com/gosmartwizard/WebServiceV4/business/web/v1/mid"
 	"github.com/gosmartwizard/WebServiceV4/foundation/web"
@@ -27,6 +30,14 @@ func APIMux(cfg APIMuxConfig) *web.App {
 	app.Handle(http.MethodGet, "/test", testgrp.Test)
 
 	app.Handle(http.MethodGet, "/test/auth", testgrp.Test, mid.Authenticate(cfg.Auth), mid.Authorize(cfg.Auth, auth.RuleAdminOnly))
+
+	// -------------------------------------------------------------------------
+
+	usrCore := user.NewCore(userdb.NewStore(cfg.Log, cfg.DB))
+
+	ugh := usergrp.New(usrCore)
+
+	app.Handle(http.MethodGet, "/users", ugh.Query)
 
 	return app
 }

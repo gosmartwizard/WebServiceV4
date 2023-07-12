@@ -1,4 +1,4 @@
-package usersummary
+package summary
 
 import "github.com/gosmartwizard/WebServiceV4/business/data/order"
 
