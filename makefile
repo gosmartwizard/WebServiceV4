@@ -130,38 +130,26 @@ tidy:
 metrics-view:
 	expvarmon -ports="$(SERVICE_NAME).$(NAMESPACE).svc.cluster.local:4000" -vars="build,requests,goroutines,errors,panics,mem:memstats.Alloc"
 
-metrics-view-local:
+metrics-view:
 	expvarmon -ports="localhost:4000" -vars="build,requests,goroutines,errors,panics,mem:memstats.Alloc"
 
 test-endpoint:
-	curl -il $(SERVICE_NAME).$(NAMESPACE).svc.cluster.local:3000/test
-
-test-endpoint-local:
 	curl -il localhost:3000/test
 
 test-endpoint-auth:
-	curl -il -H "Authorization: Bearer ${TOKEN}" $(SERVICE_NAME).$(NAMESPACE).svc.cluster.local:3000/test/auth
-
-test-endpoint-auth-local:
 	curl -il -H "Authorization: Bearer ${TOKEN}" localhost:3000/test/auth
 
-liveness-local:
+liveness:
 	curl -il http://localhost:4000/debug/liveness
 
-liveness:
-	curl -il http://$(SERVICE_NAME).$(NAMESPACE).svc.cluster.local:4000/debug/liveness
-
-readiness-local:
+readiness:
 	curl -il http://localhost:4000/debug/readiness
 
-readiness:
-	curl -il http://$(SERVICE_NAME).$(NAMESPACE).svc.cluster.local:4000/debug/readiness
-
-pgcli-local:
-	pgcli postgresql://postgres:postgres@localhost
-
 pgcli:
-	pgcli postgresql://postgres:postgres@database-service.$(NAMESPACE).svc.cluster.local
+	pgcli postgresql://postgres:postgres@localhost
 
 migrate:
 	go run app/tooling/admin/main.go
+
+query:
+	curl -il http://localhost:3000/users?page=1&rows=2
